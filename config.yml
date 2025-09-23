@@ -73,7 +73,7 @@ params:
             - name: GitHub
               url: https://github.com/s-sompalli
             - name: Resume
-              url: papers/ssompalli-resume.pdf
+              url: /content/work/main-template.pdf
 
     # socialIcons:
         # - name: CV
