@@ -1,133 +1,76 @@
 ---
-title: "Climate Wins" 
-date: 2025-08-10
-tags: ["machine learning"]
+title: "Chocolate Ratings" 
+date: 2025-09-30
+tags: ["machine learning", "visualizations"]
 author: ["Suhas Sompalli"]
 description: ""
-summary: "My work on the Climate Wins project for weather prediction"
+summary: "Predicting final ratings of various chocolate products"
 cover:
-    image: climatewins.png
-    alt: "ClimateWins banner"
+    image: chocolate.jpg
+    alt: "Chocolate Banner"
     relative: true
 editPost:
-    URL: "https://github.com/s-sompalli/climate-wins"
-    Text: "github.com/climate-wins"
+    URL: "https://github.com/s-sompalli/chocolate-ratings"
+    Text: "github.com/chocolate-ratings"
+---
+
+
+##### Introduction
+
+The Chocolate Bar Ratings dataset, sourced from Kaggle, offers a profile of 1,795 reviews of 440 unique chocolate bars. The set was collected between 2006 and 2017, and each review was submitted by chocolate enthusiasts. The dataset was selected for its relevance to specialty food analysis in regard to origin and quality.
 
 ---
 
-<!-- ---
+##### Model
 
-##### Download
+The dataset comprises the following key features:
 
-+ [Paper](paper3.pdf)
-+ [Raw data](https://github.com/pmichaillat/michez-rule)
+| Feature         | Description                                                                 |
+|-----------------|-----------------------------------------------------------------------------|
+| Company         | Chocolate manufacturer (416 unique)                                         |
+| BarName         | Bean origin or bar variant (1,039 unique)                                   |
+| REF             | Unique bar identifier                                                       |
+| ReviewDate      | Year reviewed (2006–2017)                                                   |
+| CocoaPercent    | Cocoa content (%)                                                           |
+| Location        | Country of production (60 total)                                            |
+| Rating          | Sensory score (1.0 to 5.0)                                                  |
+| BeanType        | Cacao variety or blend (41 types; ~50% missing)                             |
+| BroadOrigin     | Country of bean origin (100 total)                                          |
 
----
- -->
-##### Intro
 
-In August of 2025, I began the my work on the ClimateWins project in order to help predict various weather patterns across all of Europe. Here is an overview:
+The data was voluntarily submitted.    
 
-Goal 1: Detect Unusual Weather Patterns Across Europe
-- Using AI to identify weather events that deviate from historical regional norms
-- Integrating data from satellites, sensors, and climate databases
-
-Goal 2: Track Shifts in Weather Trends
-- Applying trend and time-series analysis to measure changes in frequency and intensity
-- Pinpointing patterns that may signal increasing climate volatility
-
-Goal 3: Forecast Future Climate Scenarios (20–50 Years)
-- Emulating physical climate models using advanced neural networks
-- Simulating possible futures based on current emissions and socioeconomic pathways
-- Generating probabilistic forecasts to support long-term planning
+*Major limitations include*:   
+- no reviews post-2017   
+- potential bias from enthusiast reviewers     
+- approximately 50% of BeanType cells were empty  
 
 ---
 
-##### Models
-
-In order to achieve our goals, we used a variety of models, most notably:
-
-- Hierarchical Clustering: uses clustering to categorize
-
-- Random Forest: uses a random sample of decision trees to categorize
-
-- General Adversarial Network (GAN): Uses artificially produced data to categorize
-
-- Convolution Neural Network (CNN): Uses pre-defined layers to categorize
+##### Cleaning
 
 
----
-
-##### Solutions
-
-Solution 1
-
-● Unlocking Insights with Hierarchical Clustering
-– Traditional classifications of weather as "typical" or "atypical" offer limited value. By leveraging
-hierarchical clustering, we can uncover deeper, actionable categorizations that better inform
-decision-making.
-
-● Approach and Results
-– To maximize the impact of this analysis, we propose expanding the modeling strategy. Specifically:
-– Apply the clustering model across multiple years, seasons, and months to observe temporal
-patterns and variations
-– Use the clustering outcomes to enhance and inform other, more definitive modeling frameworks
-– This multi-layered approach allows us to go beyond surface-level labels and toward meaningful,
-operational insights.
-– 3 unique clusters were identified for most relevant weather stations
-
-Solution 2
-
-● Forecasting Future Weather with GAN-Driven Modeling
-– By synthesizing weather data using Generative Adversarial Networks (GANs), we can train Convolutional
-Neural Networks (CNNs) to forecast potential weather conditions over the next five decades. This integrated
-modeling approach offers a pathway to informed long-term climate strategy.
-
-● Approach
-– To validate this methodology, we recommend the following steps:
-– Acquire radar datasets as recommended and apply Bayesian optimization for model tuning
-– Train the optimized CNN using synthetic data generated by the GAN
-– Evaluate performance and variability across different years, countries, and regions
-
-● Results
-– Bayesian optimization significantly enhanced model accuracy—from 12% to 74%—demonstrating the
-effectiveness of this hybrid strategy that with tweaks can get up to 90% at the minimum
-
-
-Solution 3
-
-● Using Random Forest Optimization to Guide Safe Living Decisions
-– By optimizing a random forest model, we can identify key weather features that significantly impact safety and
-well-being. This insight allows us to pinpoint regions with favorable living conditions, particularly as climate
-patterns evolve.
-
-● Approach
-– To strengthen the reliability of this methodology, we propose:
-– Running model optimization across additional stations and extended time frames
-– Applying the optimized model to extreme weather datasets
-– Comparing model outputs with healthcare metrics to explore correlations with human wellbeing
-
-● Results
-– Accuracy increased from 59.1% to 67.3% when evaluating all stations
-– Accuracy decreased from 100% to 85% at a single station, correcting overfitting in the unoptimized model
-– Running both versions of the model revealed the relative importance of weather features in climate analysis
+- **Column Standardization**: Removed line breaks and extra spaces; standardized names 
+- **Type Conversion**: Transformed CocoaPercent from string (“70%”) to float (70.0); ensured ReviewDate and Rating were numeric.
+- **Missing Values**: Replaced 887 missing BeanType entries with “Unknown”; kept one missing BroadOrigin for transparency.
+- **Duplicates**: No exact duplicates found; multiple entries for each REF exist
+- **Integrity Checks**: Validated all key fields; no out-of-range values in CocoaPercent.
 
 ---
 
 ##### Analysis
 
-Overview
-– The modeling experiment delivered the highest improvement in predictive accuracy
-– Early results show immediate applicability to ClimateWins’ strategic objectives
-– The selected technologies have already shown real-world success in enhancing severe weather forecasting
+The cleaned dataset enables exploration of several compelling questions:
 
-● Data and Algorithms
-– CNN, GAN, Bayesian Optimization
-– Additional Weather and Health Data
-
-● Next Steps
-– Advance Bayesian optimization of CNN models for greater precision
-– Deploy stronger CNNs using synthetic data generated by GANs
-– Expand and curate datasets to support robust training and validation
+-  **CocoaPercent vs. Rating**: Investigate whether higher cocoa content correlates with better sensory scores.
+	- In general lower cocoa percentages resulted in higher reviews
+-  **Temporal Trends**: Examine rating patterns over time.
+	- Weak association of ratings creep
+-  **BeanType Comparison**: Assess how different cacao varieties perform in average ratings.
+	- Generally weak association, perhaps due to missing data
+-  **Predictive Modeling**: Explore whether a bar’s Rating can be predicted from CocoaPercent, Origin, and Company.
+	- Yes, but high variability
+-  **Preference Shifts**: Analyze trends in consumer preference for dark vs. lower-percentage chocolate.
+	- Inconclusive
 
 ---
